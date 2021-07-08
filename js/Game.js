@@ -1,5 +1,7 @@
 class Game {
-  constructor(){}
+  constructor(){
+
+  }
 
   getState(){
     var gameStateRef  = database.ref('gameState');
@@ -23,7 +25,7 @@ class Game {
         playerCount = playerCountRef.val();
         player.getCount();
       }
-      form = new Form()
+      form = new Form();
       form.display();
     }
   }
@@ -31,7 +33,38 @@ class Game {
   play(){
     form.hide();
     textSize(30);
-    text("Game Start", 120, 100)
+    text("Game Start", 120, 100);
+
+    Player.getPlayerInfo();
+    console.log(allPlayers);
+
+    if(allPlayers !== undefined){
+
+      var displayPosition = 130;
+      for(var plr in allPlayers){
+
+        if(plr==="player" + player.index){
+
+          fill("red");
+        }
+
+        else{
+          
+          fill("black");
+      }
+
+      displayPosition += 20;
+      textSize(15);
+      text(allPlayers[plr].name + ": " + allPlayers[plr].distance,120,displayPosition);
+      }
+      
+    }
+
+    if(keyIsDown(UP_ARROW) && player.index !== null){
+
+      player.distance += 50;
+      player.update();
+    }
    
 }
 }
